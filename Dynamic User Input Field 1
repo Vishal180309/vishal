@@ -1,0 +1,122 @@
+1) Create a dynamic form that generates input fields based on user add.
+
+HTML:
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Form</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Dynamic Form</h1>
+    <form id="dynamic-form">
+        <div id="input-fields">
+            <!-- Input fields will be generated here -->
+        </div>
+        <button id="add-field-btn">Add Field</button>
+        <button id="submit-btn">Submit</button>
+    </form>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
+
+CSS (in style.css file):
+
+
+body {
+    font-family: Arial, sans-serif;
+}
+
+#dynamic-form {
+    width: 50%;
+    margin: 40px auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+#input-fields {
+    margin-bottom: 20px;
+}
+
+#add-field-btn, #submit-btn {
+    width: 100%;
+    height: 40px;
+    margin-bottom: 20px;
+    border: none;
+    border-radius: 10px;
+    background-color: #4CAF50;
+    color: #fff;
+    cursor: pointer;
+}
+
+#add-field-btn:hover, #submit-btn:hover {
+    background-color: #3e8e41;
+}
+
+
+JavaScript (in script.js file):
+
+
+let inputFieldCount = 0;
+
+// Get the input fields container
+const inputFieldsContainer = document.getElementById('input-fields');
+
+// Get the add field button
+const addFieldBtn = document.getElementById('add-field-btn');
+
+// Add event listener to the add field button
+addFieldBtn.addEventListener('click', addInputField);
+
+// Function to add an input field
+function addInputField() {
+    inputFieldCount++;
+
+    // Create a new input field
+    const inputField = document.createElement('input');
+    inputField.type = 'text';
+    inputField.placeholder = `Field ${inputFieldCount}`;
+    inputField.className = 'input-field';
+
+    // Create a new label for the input field
+    const label = document.createElement('label');
+    label.textContent = `Field ${inputFieldCount}:`;
+    label.htmlFor = `field-${inputFieldCount}`;
+
+    // Create a new div to wrap the label and input field
+    const fieldWrapper = document.createElement('div');
+    fieldWrapper.className = 'field-wrapper';
+    fieldWrapper.appendChild(label);
+    fieldWrapper.appendChild(inputField);
+
+    // Append the field wrapper to the input fields container
+    inputFieldsContainer.appendChild(fieldWrapper);
+}
+
+// Get the submit button
+const submitBtn = document.getElementById('submit-btn');
+
+// Add event listener to the submit button
+submitBtn.addEventListener('click', submitForm);
+
+// Function to submit the form
+function submitForm(event) {
+    event.preventDefault();
+
+    // Get all input fields
+    const inputFields = document.querySelectorAll('.input-field');
+
+    // Get the input field values
+    const values = Array.from(inputFields).map(field => field.value);
+
+    
+    console.log(values);
+}
